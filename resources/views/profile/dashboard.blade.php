@@ -42,7 +42,9 @@
         <div class="col-md-3">
             <ul class="list-group">
                 <li class="list-group-item active">Dashboard</li>
-                <li class="list-group-item">Users</li>
+                <li class="list-group-item">
+                    <a href="{{ route('users.index') }}">Users</a>
+                </li>
                 <li class="list-group-item">Reports</li>
                 <li class="list-group-item">Settings</li>
             </ul>
