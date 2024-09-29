@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>User List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    @livewireStyles
+    @vite(['resources/js/app.js'])
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -58,55 +60,7 @@
                     </div>
                 @endif
         
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">All Users</h4>
-                    </div>
-        
-                    <div class="card-body">
-                        <table class="table table-striped table-hover">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Created At</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($users as $user)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->profile->role->name ?? 'N/A' }}</td>
-                                        <td>{{ $user->created_at->format('d M Y') }}</td>
-                                        <td>
-                                            {{-- <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm">View</a> --}}
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">No users found</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-        
-                    <div class="card-footer d-flex justify-content-end">
-                        {{ $users->links() }}
-                    </div>
-                </div>
+                @livewire('admin.user.user-list')
             </div>
         </div>
         
@@ -114,5 +68,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    @livewireScripts
 </body>
 </html>
