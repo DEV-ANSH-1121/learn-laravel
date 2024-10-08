@@ -24,6 +24,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/forget-password', [AuthController::class, 'forgetPassword'])->name('password.request');
+Route::post('/forget-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.mail');
+Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordPage'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.reset.password');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
